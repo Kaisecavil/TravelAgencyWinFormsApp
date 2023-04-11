@@ -48,8 +48,9 @@
             this.запросыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.button1 = new System.Windows.Forms.Button();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.FilterComboBox = new System.Windows.Forms.ComboBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
+            this.отчётыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -108,6 +109,7 @@
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.таблицыToolStripMenuItem,
             this.запросыToolStripMenuItem,
+            this.отчётыToolStripMenuItem,
             this.exitToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
@@ -136,77 +138,77 @@
             // продажаТураToolStripMenuItem
             // 
             this.продажаТураToolStripMenuItem.Name = "продажаТураToolStripMenuItem";
-            this.продажаТураToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.продажаТураToolStripMenuItem.Size = new System.Drawing.Size(204, 26);
             this.продажаТураToolStripMenuItem.Text = "Продажа Тура";
             this.продажаТураToolStripMenuItem.Click += new System.EventHandler(this.продажаТураToolStripMenuItem_Click);
             // 
             // клиентToolStripMenuItem
             // 
             this.клиентToolStripMenuItem.Name = "клиентToolStripMenuItem";
-            this.клиентToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.клиентToolStripMenuItem.Size = new System.Drawing.Size(204, 26);
             this.клиентToolStripMenuItem.Text = "Клиент";
             this.клиентToolStripMenuItem.Click += new System.EventHandler(this.клиентToolStripMenuItem_Click);
             // 
             // видТранспортаToolStripMenuItem
             // 
             this.видТранспортаToolStripMenuItem.Name = "видТранспортаToolStripMenuItem";
-            this.видТранспортаToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.видТранспортаToolStripMenuItem.Size = new System.Drawing.Size(204, 26);
             this.видТранспортаToolStripMenuItem.Text = "Вид Транспорта";
             this.видТранспортаToolStripMenuItem.Click += new System.EventHandler(this.видТранспортаToolStripMenuItem_Click);
             // 
             // видТураToolStripMenuItem
             // 
             this.видТураToolStripMenuItem.Name = "видТураToolStripMenuItem";
-            this.видТураToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.видТураToolStripMenuItem.Size = new System.Drawing.Size(204, 26);
             this.видТураToolStripMenuItem.Text = "Вид Тура";
             this.видТураToolStripMenuItem.Click += new System.EventHandler(this.видТураToolStripMenuItem_Click);
             // 
             // сотрудникToolStripMenuItem
             // 
             this.сотрудникToolStripMenuItem.Name = "сотрудникToolStripMenuItem";
-            this.сотрудникToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.сотрудникToolStripMenuItem.Size = new System.Drawing.Size(204, 26);
             this.сотрудникToolStripMenuItem.Text = "Сотрудник";
             this.сотрудникToolStripMenuItem.Click += new System.EventHandler(this.сотрудникToolStripMenuItem_Click);
             // 
             // курортToolStripMenuItem
             // 
             this.курортToolStripMenuItem.Name = "курортToolStripMenuItem";
-            this.курортToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.курортToolStripMenuItem.Size = new System.Drawing.Size(204, 26);
             this.курортToolStripMenuItem.Text = "Курорт";
             this.курортToolStripMenuItem.Click += new System.EventHandler(this.курортToolStripMenuItem_Click);
             // 
             // странаToolStripMenuItem
             // 
             this.странаToolStripMenuItem.Name = "странаToolStripMenuItem";
-            this.странаToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.странаToolStripMenuItem.Size = new System.Drawing.Size(204, 26);
             this.странаToolStripMenuItem.Text = "Страна";
             this.странаToolStripMenuItem.Click += new System.EventHandler(this.странаToolStripMenuItem_Click);
             // 
             // должностьToolStripMenuItem
             // 
             this.должностьToolStripMenuItem.Name = "должностьToolStripMenuItem";
-            this.должностьToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.должностьToolStripMenuItem.Size = new System.Drawing.Size(204, 26);
             this.должностьToolStripMenuItem.Text = "Должность";
             this.должностьToolStripMenuItem.Click += new System.EventHandler(this.должностьToolStripMenuItem_Click);
             // 
             // турToolStripMenuItem
             // 
             this.турToolStripMenuItem.Name = "турToolStripMenuItem";
-            this.турToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.турToolStripMenuItem.Size = new System.Drawing.Size(204, 26);
             this.турToolStripMenuItem.Text = "Тур";
             this.турToolStripMenuItem.Click += new System.EventHandler(this.турToolStripMenuItem_Click);
             // 
             // отельToolStripMenuItem
             // 
             this.отельToolStripMenuItem.Name = "отельToolStripMenuItem";
-            this.отельToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.отельToolStripMenuItem.Size = new System.Drawing.Size(204, 26);
             this.отельToolStripMenuItem.Text = "Отель";
             this.отельToolStripMenuItem.Click += new System.EventHandler(this.отельToolStripMenuItem_Click);
             // 
             // городToolStripMenuItem
             // 
             this.городToolStripMenuItem.Name = "городToolStripMenuItem";
-            this.городToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.городToolStripMenuItem.Size = new System.Drawing.Size(204, 26);
             this.городToolStripMenuItem.Text = "Город";
             this.городToolStripMenuItem.Click += new System.EventHandler(this.городToolStripMenuItem_Click);
             // 
@@ -215,12 +217,14 @@
             this.запросыToolStripMenuItem.Name = "запросыToolStripMenuItem";
             this.запросыToolStripMenuItem.Size = new System.Drawing.Size(84, 24);
             this.запросыToolStripMenuItem.Text = "Запросы";
+            this.запросыToolStripMenuItem.Click += new System.EventHandler(this.запросыToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
             this.exitToolStripMenuItem.Size = new System.Drawing.Size(47, 24);
             this.exitToolStripMenuItem.Text = "Exit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // button1
             // 
@@ -228,17 +232,18 @@
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(148, 29);
             this.button1.TabIndex = 5;
-            this.button1.Text = "button1";
+            this.button1.Text = "Поиск";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // comboBox1
+            // FilterComboBox
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(826, 54);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(151, 28);
-            this.comboBox1.TabIndex = 6;
+            this.FilterComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.FilterComboBox.FormattingEnabled = true;
+            this.FilterComboBox.Location = new System.Drawing.Point(826, 54);
+            this.FilterComboBox.Name = "FilterComboBox";
+            this.FilterComboBox.Size = new System.Drawing.Size(151, 28);
+            this.FilterComboBox.TabIndex = 6;
             // 
             // textBox1
             // 
@@ -247,13 +252,20 @@
             this.textBox1.Size = new System.Drawing.Size(148, 27);
             this.textBox1.TabIndex = 7;
             // 
+            // отчётыToolStripMenuItem
+            // 
+            this.отчётыToolStripMenuItem.Name = "отчётыToolStripMenuItem";
+            this.отчётыToolStripMenuItem.Size = new System.Drawing.Size(73, 24);
+            this.отчётыToolStripMenuItem.Text = "Отчёты";
+            this.отчётыToolStripMenuItem.Click += new System.EventHandler(this.отчётыToolStripMenuItem_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1060, 450);
             this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.FilterComboBox);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.DeleteBtn);
             this.Controls.Add(this.UpdateBtn);
@@ -293,7 +305,8 @@
         private ToolStripMenuItem отельToolStripMenuItem;
         private ToolStripMenuItem городToolStripMenuItem;
         private Button button1;
-        private ComboBox comboBox1;
+        private ComboBox FilterComboBox;
         private TextBox textBox1;
+        private ToolStripMenuItem отчётыToolStripMenuItem;
     }
 }
