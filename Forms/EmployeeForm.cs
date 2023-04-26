@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using TravelAgencyRepository.Factory;
 using TravelAgencyRepository.Models;
+using TravelAgencyEFRepository.Factory;
 
 namespace TravelAgencyWinFormsApp.Forms
 {
@@ -33,11 +34,11 @@ namespace TravelAgencyWinFormsApp.Forms
             int postId = post.Id;
             if (idForUpdate != -1)
             {
-                RepositoryFactory.EmployeeRepo.UpdateEntitybyId(idForUpdate, new Employee(-1, fname, sname, oname, postId));
+                EFRepositoryFactory.EmployeeRepo.UpdateEntitybyId(idForUpdate, new TravelAgencyEFRepository.Models.Employee { FirstName = fname, SecondName = sname, FatherName = oname, PostId = postId });
             }
             else
             {
-                RepositoryFactory.EmployeeRepo.Create(new Employee(-1, fname, sname, oname, postId));
+                EFRepositoryFactory.EmployeeRepo.Create(new TravelAgencyEFRepository.Models.Employee { FirstName = fname, SecondName = sname, FatherName = oname, PostId = postId });
             }
             mainForm.UpdateDataViewDataSource();
             Close();

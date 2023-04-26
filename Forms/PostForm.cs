@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using TravelAgencyEFRepository.Factory;
 using TravelAgencyRepository.Factory;
 using TravelAgencyRepository.Models;
 
@@ -32,7 +33,7 @@ namespace TravelAgencyWinFormsApp.Forms
                 textBox1.Focus();
                 return;
             }
-            
+
             try
             {
                 if (textBox2.Text.Trim().Length > 0)
@@ -40,11 +41,11 @@ namespace TravelAgencyWinFormsApp.Forms
                     decimal salary = Convert.ToDecimal(textBox2.Text.Trim());
                     if (idForUpdate != -1)
                     {
-                        RepositoryFactory.PostRepo.UpdateEntitybyId(idForUpdate, new Post(-1, post, salary));
+                        EFRepositoryFactory.PostRepo.UpdateEntitybyId(idForUpdate, new TravelAgencyEFRepository.Models.Post { Title = post, Salary = salary });
                     }
                     else
                     {
-                        RepositoryFactory.PostRepo.Create(new Post(-1, post, salary));
+                        EFRepositoryFactory.PostRepo.Create(new TravelAgencyEFRepository.Models.Post { Title = post, Salary = salary });
                     }
                     mainForm.UpdateDataViewDataSource();
                     Close();

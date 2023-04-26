@@ -4,9 +4,11 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
+using System.IO;
 using System.Runtime.InteropServices;
 using System.Runtime.Intrinsics.X86;
 using System.Windows.Forms;
+using TravelAgencyEFRepository.Factory;
 using TravelAgencyRepository.DataBase;
 using TravelAgencyRepository.Factory;
 using TravelAgencyRepository.Interfaces;
@@ -375,7 +377,7 @@ namespace TravelAgencyWinFormsApp
                     break;
             }
             dataGridView1.DataSource = dataTable;
-            button1.Text = dataTable.TableName;
+            //button1.Text = dataTable.TableName;
             UpdateFilterComboBoxDataSource(dataTable);
         }
 
@@ -420,12 +422,20 @@ namespace TravelAgencyWinFormsApp
 
         private void UpdateFilterComboBoxDataSource(System.Data.DataTable dataTable)
         {
+            FilterComboBox.DataSource = GetDataTableHeders(dataTable).Skip(1).ToList();
+            FilterComboBox.Enabled = true;
+            textBox1.Enabled = true;
+            button1.Enabled = true;
+        }
+
+        public static List<string> GetDataTableHeders(System.Data.DataTable dataTable)
+        {
             List<string> columnNames = new List<string>();
             foreach (DataColumn col in dataTable.Columns)
             {
                 columnNames.Add(col.ColumnName);
             }
-            FilterComboBox.DataSource = columnNames.Skip(1).ToList();
+            return columnNames;
         }
 
         private void запросыToolStripMenuItem_Click(object sender, EventArgs e)
@@ -441,43 +451,86 @@ namespace TravelAgencyWinFormsApp
 
         private void отчётыToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            WordDocxTable((System.Data.DataTable)dataGridView1.DataSource);
+        }
+
+        public static void WordDocxTable(System.Data.DataTable dataTable)
+        {
+            string tn = dataTable.TableName;
+            string date = DateTime.Now.ToString("d") + "_" + DateTime.Now.ToString("t");
+            //FileInfo fileInf = new FileInfo($@"D:\1Учёба\3 курс\сем 2\Москалёва\TravelAgencyWinFormsApp\Reports\report.docx");
+            //fileInf.Create();
+            var file = File.Create($@"D:\1Учёба\3 курс\сем 2\Москалёва\TravelAgencyWinFormsApp\Reports\{tn}.docx");
+            file.Close();
             // Создание нового документа Word
             Application wordApp = new Application();
             Document doc = wordApp.Documents.Add();
 
             // Создание таблицы
-            Table table = doc.Tables.Add(doc.Range(), 1, 5); // 1 - количество строк, 5 - количество столбцов
+            Table table = doc.Tables.Add(doc.Range(), dataTable.Rows.Count + 1, dataTable.Columns.Count - 1);
             table.Borders.Enable = 1; // Включение границ таблицы
 
             // Добавление заголовков столбцов
-            table.Cell(1, 1).Range.Text = "Код";
-            table.Cell(1, 2).Range.Text = "Имя";
-            table.Cell(1, 3).Range.Text = "Фамилия";
-            table.Cell(1, 4).Range.Text = "Отчество";
-            table.Cell(1, 5).Range.Text = "Паспорт";
-
-            // Заполнение данных из таблицы "Клиент"
-            // Здесь нужно использовать ваш механизм доступа к данным, например, ADO.NET, для получения данных из таблицы "Клиент"
-            // и заполнения таблицы в документе Word соответствующими значениями
-
-            // Пример заполнения данных из таблицы "Клиент" в Word
-            // Здесь данные заполняются случайными значениями в качестве примера
-            Random random = new Random();
-            for (int i = 2; i <= 6; i++) // i - номер строки, с которой начинается заполнение данных
+            var headers = GetDataTableHeders(dataTable);
+            for (int i = 0; i < headers.Count; i++)
             {
-                table.Cell(i, 1).Range.Text = random.Next(100).ToString(); // Пример значения для столбца "Код"
-                table.Cell(i, 2).Range.Text = "Имя " + i.ToString(); // Пример значения для столбца "Имя"
-                table.Cell(i, 3).Range.Text = "Фамилия " + i.ToString(); // Пример значения для столбца "Фамилия"
-                table.Cell(i, 4).Range.Text = "Отчество " + i.ToString(); // Пример значения для столбца "Отчество"
-                table.Cell(i, 5).Range.Text = "Паспорт " + i.ToString(); // Пример значения для столбца "Паспорт"
+                table.Cell(1, i).Range.Text = headers[i];
+                table.Cell(1, i).Range.Bold = 1;
             }
 
+            for (int i = 0; i < dataTable.Rows.Count; i++)
+            {
+                object[] arr = dataTable.Rows[i].ItemArray;
+                for (int j = 0; j < arr.Length; j++)
+                {
+                    table.Cell(i + 2, j).Range.Text = arr[j].ToString();
+                }
+            }
+
+            //fileInf.Create(FileMode.CreateNew, System.Security.AccessControl.FileSystemRights.FullControl, FileShare.ReadWrite, 100, FileOptions.None, System.Security.AccessControl.AccessControlSections.None);
             // Сохранение документа и закрытие приложения Word
-            doc.SaveAs2("Отчет_Клиенты.docx"); // Указываете путь и имя файла для сохранения отчета
-            doc.Close();
-            Marshal.ReleaseComObject(doc);
-            wordApp.Quit();
-            Marshal.ReleaseComObject(wordApp);
+            //wordApp.ActiveDocument.SaveAs2($@"D:\1Учёба\3 курс\сем 2\Москалёва\TravelAgencyWinFormsApp\Reports\{tn}.docx");
+            doc.SaveAs2($@"D:\1Учёба\3 курс\сем 2\Москалёва\TravelAgencyWinFormsApp\Reports\{tn}.docx"); // Указываете путь и имя файла для сохранения отчета
+
+            DialogResult result = MessageBox.Show($"Открыть отчёт?", "",
+            MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+            if(result == DialogResult.Yes)
+            {
+                wordApp.Visible = true;
+            }
+            else
+            {
+                doc.Close();
+                Marshal.ReleaseComObject(doc);
+                wordApp.Quit();
+                Marshal.ReleaseComObject(wordApp);
+            }
+        }
+
+        public static void AddTableToWordFile(Document doc, System.Data.DataTable dataTable)
+        {
+            string tn = dataTable.TableName;
+            Table table = doc.Tables.Add(doc.Range(), dataTable.Rows.Count + 1, dataTable.Columns.Count - 1);
+            table.Borders.Enable = 1; // Включение границ таблицы
+            
+            // Добавление заголовков столбцов
+            var headers = GetDataTableHeders(dataTable);
+            for (int i = 0; i < headers.Count; i++)
+            {
+                table.Cell(1, i).Range.Text = headers[i];
+                table.Cell(1, i).Range.Bold = 1;
+            }
+
+            for (int i = 0; i < dataTable.Rows.Count; i++)
+            {
+                object[] arr = dataTable.Rows[i].ItemArray;
+                for (int j = 0; j < arr.Length; j++)
+                {
+                    table.Cell(i + 2, j).Range.Text = arr[j].ToString();
+                }
+            }
+
+            doc.Save();
         }
     }
 }
